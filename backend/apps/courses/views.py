@@ -3,7 +3,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.filters import SearchFilter, OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
 
-from core.permissions import IsManager, IsTeacher, ReadOnly
+from core.permissions import IsManager, IsTeacher
 from core.mixins import SoftDeleteMixin, SuccessResponseMixin
 from .models import Course
 from .serializers import (
@@ -29,7 +29,7 @@ class CourseViewSet(SoftDeleteMixin, SuccessResponseMixin, viewsets.ModelViewSet
     def get_permissions(self):
         if self.action in ('create', 'update', 'partial_update', 'destroy'):
             return [IsAuthenticated(), IsManager()]
-        return [IsAuthenticated(), IsTeacher() | ReadOnly()]
+        return [IsAuthenticated(), IsTeacher()]
 
     def get_serializer_class(self):
         if self.action in ('create', 'update', 'partial_update'):
