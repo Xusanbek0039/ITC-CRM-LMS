@@ -3,6 +3,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework import serializers as drf_serializers
 from rest_framework_simplejwt.tokens import RefreshToken
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
@@ -31,8 +32,13 @@ class TokenRefreshAPIView(TokenRefreshView):
     permission_classes = [AllowAny]
 
 
+class LogoutSerializer(drf_serializers.Serializer):
+    refresh = drf_serializers.CharField()
+
+
 class LogoutView(generics.GenericAPIView):
     """Chiqish — refresh tokenni blacklist ga qo'shish."""
+    serializer_class = LogoutSerializer
     permission_classes = [IsAuthenticated]
 
     def post(self, request):

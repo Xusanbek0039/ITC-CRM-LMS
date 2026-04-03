@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from drf_spectacular.utils import extend_schema_field
 
 from .models import Attendance, AttendanceRecord
 
@@ -35,6 +36,7 @@ class AttendanceListSerializer(serializers.ModelSerializer):
         model = Attendance
         fields = ['id', 'group', 'date', 'created_by', 'records_summary', 'created_at']
 
+    @extend_schema_field(serializers.DictField())
     def get_records_summary(self, obj):
         records = obj.records.all()
         return {
