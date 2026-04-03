@@ -4,7 +4,7 @@ from . import views
 
 router = DefaultRouter()
 router.register(r'rooms', views.RoomViewSet, basename='rooms')
-router.register(r'groups', views.GroupViewSet, basename='groups')
+router.register(r'', views.GroupViewSet, basename='groups')
 
 urlpatterns = [
     path('', include(router.urls)),
