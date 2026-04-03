@@ -9,6 +9,7 @@ const groupsApi = {
   getStudents: (id) => api.get(`/groups/${id}/students/`),
   addStudent: (id, data) => api.post(`/groups/${id}/students/`, data),
   removeStudent: (id, data) => api.delete(`/groups/${id}/students/`, { data }),
+  getRooms: (params) => api.get('/groups/rooms/', { params }),
 };
 
 export default groupsApi;
